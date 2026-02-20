@@ -1,6 +1,4 @@
-
 import { useState } from "react";
-import { send } from "@emailjs/browser";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Images
@@ -16,19 +14,19 @@ import ResearchImage from "../assets/research.jpg";
 
 // Dynamic Configuration
 const SERVICES_CONFIG = {
-  // EmailJS Configuration
+  // EmailJS Configuration (disabled - using WhatsApp instead)
   email: {
     serviceId: "service_rapdvl1",
     templateId: "template_u5kurba",
     publicKey: "NwiBom_kjZvpQfXpR",
-    enabled: true
+    enabled: false
   },
 
-  // WhatsApp Configuration (alternative to email)
+  // WhatsApp Configuration (enabled)
   whatsapp: {
-    enabled: false,
+    enabled: true,
     number: "+254736351633",
-    messageTemplate: "Hello, I would like to request: {service}"
+    messageTemplate: "Hello, I would like to request: {service}%0A%0AName: {name}%0AEmail: {email}%0ADetails: {details}"
   },
 
   // UI Configuration
@@ -84,16 +82,16 @@ const SERVICES_CONFIG = {
     },
     buttons: {
       viewDetails: "View Details",
-      requestService: "Request Service",
+      requestService: "Request via WhatsApp",
       close: "Close",
       back: "Back to Details",
-      submit: "Submit Request",
-      sending: "Sending..."
+      submit: "Send via WhatsApp",
+      sending: "Opening WhatsApp..."
     },
     form: {
       namePlaceholder: "Full Name",
-      emailPlaceholder: "Email",
-      detailsPlaceholder: "Request details",
+      emailPlaceholder: "Email (optional)",
+      detailsPlaceholder: "Additional details or questions",
       successMessage: "Your request for {service} has been sent!",
       errorMessage: "Failed to send request. Please try again later."
     },
@@ -111,8 +109,8 @@ const SERVICES_CONFIG = {
     truncateDescription: true,
     descriptionLength: 100,
     modalImages: true,
-    enableEmail: true,
-    enableWhatsApp: false,
+    enableEmail: false,
+    enableWhatsApp: true,
     animations: true,
     showSearch: true,
     showFilters: true
@@ -136,7 +134,7 @@ const DEFAULT_SERVICES = [
     icon: "🌱",
     category: "agriculture",
     price: "Contact for pricing",
-    turnaround: "1-5 days"
+    turnaround: "1-7 days"
   },
   {
     id: "plant",
@@ -152,7 +150,7 @@ const DEFAULT_SERVICES = [
     icon: "🌿",
     category: "agriculture",
     price: "Contact for pricing",
-    turnaround: "1-5 days"
+    turnaround: "1-7 days"
   },
   {
     id: "feed",
@@ -168,7 +166,7 @@ const DEFAULT_SERVICES = [
     icon: "🐄",
     category: "livestock",
     price: "Contact for pricing",
-    turnaround: "1-5 days"
+    turnaround: "1-7 days"
   },
   {
     id: "food",
@@ -179,7 +177,7 @@ const DEFAULT_SERVICES = [
     icon: "🍎",
     category: "food",
     price: "Contact for pricing",
-    turnaround: "1-5 days"
+    turnaround: "1-7 days"
   },
   {
     id: "fertilizer",
@@ -190,7 +188,7 @@ const DEFAULT_SERVICES = [
     icon: "🧪",
     category: "agriculture",
     price: "Contact for pricing",
-    turnaround: "1-5 days"
+    turnaround: "1-7 days"
   },
   {
     id: "compost",
@@ -201,7 +199,7 @@ const DEFAULT_SERVICES = [
     icon: "🌿",
     category: "agriculture",
     price: "Contact for pricing",
-    turnaround: "1-5 days"
+    turnaround: "1-7 days"
   },
   {
     id: "water",
@@ -218,7 +216,7 @@ const DEFAULT_SERVICES = [
     icon: "💧",
     category: "environmental",
     price: "Contact for pricing",
-    turnaround: "1-5 days"
+    turnaround: "1-7 days"
   },
   {
     id: "effluent",
@@ -229,7 +227,7 @@ const DEFAULT_SERVICES = [
     icon: "🏭",
     category: "environmental",
     price: "Contact for pricing",
-    turnaround: "1-5 days"
+    turnaround: "1-7 days"
   },
   {
     id: "research",
@@ -244,7 +242,7 @@ const DEFAULT_SERVICES = [
     category: "research",
     price: "Contact for pricing",
     turnaround: "Custom"
-  }
+  },
 ];
 
 // Category colors for badges
@@ -307,54 +305,42 @@ export default function Services({
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  // Handle email submission
-  const handleEmailSubmit = async (e) => {
-    e.preventDefault();
-    if (!modalService) return;
-
-    setSending(true);
-    try {
-      await send(
-        config.email.serviceId,
-        config.email.templateId,
-        {
-          user_name: formData.user_name,
-          user_email: formData.user_email,
-          service_name: modalService.title,
-          request_details: formData.request_details,
-        },
-        config.email.publicKey
-      );
-      alert(config.text.form.successMessage.replace('{service}', modalService.title));
-      closeModal();
-    } catch (error) {
-      console.error(error);
-      alert(config.text.form.errorMessage);
-    }
-    setSending(false);
+  // Handle WhatsApp submission (direct)
+  const handleDirectWhatsApp = (service) => {
+    const message = `Hello, I would like to request: ${service.title}`;
+    const whatsappUrl = `https://wa.me/${config.whatsapp.number.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
   };
 
-  // Handle WhatsApp submission
+  // Handle WhatsApp submission with form
   const handleWhatsAppSubmit = (e) => {
     e.preventDefault();
     if (!modalService) return;
 
+    setSending(true);
+    
     const message = config.whatsapp.messageTemplate
       .replace('{service}', modalService.title)
       .replace('{name}', formData.user_name)
-      .replace('{details}', formData.request_details);
+      .replace('{email}', formData.user_email || 'Not provided')
+      .replace('{details}', formData.request_details || 'No additional details');
 
     const whatsappUrl = `https://wa.me/${config.whatsapp.number.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-    closeModal();
+    
+    // Small delay to show the "Opening WhatsApp..." message
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
+      setSending(false);
+      closeModal();
+    }, 500);
   };
 
   // Handle form submission based on enabled methods
   const handleSubmit = (e) => {
-    if (config.email.enabled) {
-      handleEmailSubmit(e);
-    } else if (config.whatsapp.enabled) {
+    if (config.whatsapp.enabled) {
       handleWhatsAppSubmit(e);
+    } else if (config.email.enabled) {
+      // Email submission would go here
     } else if (customActions.submit) {
       customActions.submit({ service: modalService, formData });
     }
@@ -407,10 +393,11 @@ export default function Services({
             {config.text.buttons.viewDetails}
           </button>
           <button
-            onClick={() => openRequestForm(service)}
-            className={`flex-1 ${config.ui.buttons.primary.bg} ${config.ui.buttons.primary.text} ${config.ui.buttons.primary.rounded} ${config.ui.buttons.primary.padding} transition`}
+            onClick={() => handleDirectWhatsApp(service)}
+            className={`flex-1 ${config.ui.buttons.primary.bg} ${config.ui.buttons.primary.text} ${config.ui.buttons.primary.rounded} ${config.ui.buttons.primary.padding} transition flex items-center justify-center gap-1`}
           >
-            {config.text.buttons.requestService}
+            <span>📱</span>
+            <span>WhatsApp</span>
           </button>
         </div>
       </Component>
@@ -490,10 +477,11 @@ export default function Services({
 
                 <div className="flex gap-2">
                   <button
-                    onClick={() => setModalMode("request")}
-                    className={`flex-1 ${config.ui.buttons.primary.bg} ${config.ui.buttons.primary.text} ${config.ui.buttons.primary.rounded} ${config.ui.buttons.primary.padding} transition`}
+                    onClick={() => handleDirectWhatsApp(modalService)}
+                    className={`flex-1 ${config.ui.buttons.primary.bg} ${config.ui.buttons.primary.text} ${config.ui.buttons.primary.rounded} ${config.ui.buttons.primary.padding} transition flex items-center justify-center gap-2`}
                   >
-                    {config.text.buttons.requestService}
+                    <span>📱</span>
+                    <span>{config.text.buttons.requestService}</span>
                   </button>
                   <button
                     onClick={closeModal}
@@ -526,7 +514,6 @@ export default function Services({
                     type="email"
                     name="user_email"
                     placeholder={config.text.form.emailPlaceholder}
-                    required
                     value={formData.user_email}
                     onChange={handleChange}
                     className="w-full border p-3 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
@@ -536,7 +523,6 @@ export default function Services({
                     name="request_details"
                     placeholder={config.text.form.detailsPlaceholder}
                     rows="4"
-                    required
                     value={formData.request_details}
                     onChange={handleChange}
                     className="w-full border p-3 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
@@ -545,9 +531,10 @@ export default function Services({
                   <button
                     type="submit"
                     disabled={sending}
-                    className={`w-full ${config.ui.buttons.primary.bg} ${config.ui.buttons.primary.text} ${config.ui.buttons.primary.rounded} ${config.ui.buttons.primary.padding} transition disabled:opacity-50`}
+                    className={`w-full ${config.ui.buttons.primary.bg} ${config.ui.buttons.primary.text} ${config.ui.buttons.primary.rounded} ${config.ui.buttons.primary.padding} transition disabled:opacity-50 flex items-center justify-center gap-2`}
                   >
-                    {sending ? config.text.buttons.sending : config.text.buttons.submit}
+                    <span>📱</span>
+                    <span>{sending ? config.text.buttons.sending : config.text.buttons.submit}</span>
                   </button>
                 </form>
 

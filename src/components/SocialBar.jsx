@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaWhatsapp, FaTiktok } from "react-icons/fa";
 
 export default function SocialBar() {
   const [showIcons, setShowIcons] = useState(false);
@@ -10,9 +10,34 @@ export default function SocialBar() {
   }, []);
 
   const icons = [
-    { icon: <FaFacebookF />, href: "https://facebook.com" },
-    { icon: <FaInstagram />, href: "https://instagram.com" },
-    { icon: <FaWhatsapp />, href: "https://wa.me/254736351633" },
+    { 
+      icon: <FaFacebookF />, 
+      href: "https://facebook.com",
+      bgColor: "bg-[#1877F2]",
+      hoverBg: "hover:bg-[#1877F2]",
+      textColor: "text-white"
+    },
+    { 
+      icon: <FaInstagram />, 
+      href: "https://instagram.com",
+      bgColor: "bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500",
+      hoverBg: "hover:from-purple-600 hover:via-pink-600 hover:to-orange-500",
+      textColor: "text-white"
+    },
+    { 
+      icon: <FaTiktok />, 
+      href: "https://tiktok.com",
+      bgColor: "bg-black",
+      hoverBg: "hover:bg-black",
+      textColor: "text-white"
+    },
+    { 
+      icon: <FaWhatsapp />, 
+      href: "https://wa.me/254736351633",
+      bgColor: "bg-[#25D366]",
+      hoverBg: "hover:bg-[#25D366]",
+      textColor: "text-white"
+    },
   ];
 
   return (
@@ -25,11 +50,12 @@ export default function SocialBar() {
           rel="noopener noreferrer"
           className={`w-11 h-11 flex items-center justify-center
                       rounded-full
-                      bg-white/10 backdrop-blur-md
-                      text-white/80
+                      ${item.bgColor}
+                      ${item.textColor}
+                      shadow-lg
                       border border-white/20
                       transition-all duration-500 ease-out
-                      hover:bg-white hover:text-black hover:scale-110
+                      ${item.hoverBg} hover:scale-110 hover:shadow-xl
                       ${showIcons ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
           style={{ transitionDelay: `${index * 200}ms` }}
         >

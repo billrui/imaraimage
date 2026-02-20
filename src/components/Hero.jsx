@@ -13,16 +13,16 @@ import BackgroundImage from "../assets/HDLAB.jpg"; // Use your background image
 
 // Button styles - PROFESSIONAL WITH ROUNDED EDGES AND EMOJIS
 const BUTTON_STYLES = {
-  primary: "bg-gradient-to-r from-green-600 to-green-700 text-white rounded-full transition-all duration-300 font-medium px-3 py-1.5 text-xs shadow-md hover:shadow-lg hover:from-green-700 hover:to-green-800 active:scale-95 border border-green-400/20 flex items-center justify-center gap-1.5",
-  secondary: "bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full transition-all duration-300 font-medium px-3 py-1.5 text-xs shadow-md hover:shadow-lg hover:from-blue-700 hover:to-blue-800 active:scale-95 border border-blue-400/20 flex items-center justify-center gap-1.5",
-  accent: "bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full transition-all duration-300 font-medium px-3 py-1.5 text-xs shadow-md hover:shadow-lg hover:from-purple-700 hover:to-purple-800 active:scale-95 border border-purple-400/20 flex items-center justify-center gap-1.5",
+  sample: "bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-full transition-all duration-300 font-medium px-3 py-1.5 text-xs shadow-md hover:shadow-lg hover:from-amber-600 hover:to-amber-700 active:scale-95 border border-amber-400/20 flex items-center justify-center gap-1.5",
+  callback: "bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full transition-all duration-300 font-medium px-3 py-1.5 text-xs shadow-md hover:shadow-lg hover:from-blue-700 hover:to-blue-800 active:scale-95 border border-blue-400/20 flex items-center justify-center gap-1.5",
+  quotation: "bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full transition-all duration-300 font-medium px-3 py-1.5 text-xs shadow-md hover:shadow-lg hover:from-purple-700 hover:to-purple-800 active:scale-95 border border-purple-400/20 flex items-center justify-center gap-1.5",
 };
 
 // Desktop button styles (slightly larger)
 const DESKTOP_BUTTON_STYLES = {
-  primary: "sm:px-5 sm:py-2.5 sm:text-sm sm:gap-2",
-  secondary: "sm:px-5 sm:py-2.5 sm:text-sm sm:gap-2",
-  accent: "sm:px-5 sm:py-2.5 sm:text-sm sm:gap-2",
+  sample: "sm:px-5 sm:py-2.5 sm:text-sm sm:gap-2",
+  callback: "sm:px-5 sm:py-2.5 sm:text-sm sm:gap-2",
+  quotation: "sm:px-5 sm:py-2.5 sm:text-sm sm:gap-2",
 };
 
 // Slide data
@@ -171,8 +171,9 @@ const HeroWithNavbar = forwardRef((props, ref) => {
     setShowServicePopup(false);
   };
 
-  const handleRequestPrice = () => handleWhatsApp("Hello, I would like the Price List.");
-  const handleRequestCallback = () => handleWhatsApp("Hello, I would like a call back.");
+  const handleSampleCollection = () => handleWhatsApp("Hello, I would like to request sample collection.");
+  const handleCallBack = () => handleWhatsApp("Hello, I would like to request a call back.");
+  const handleQuotation = () => handleWhatsApp("Hello, I would like to request a quotation.");
 
   const handleReadMore = (slide) => {
     setCurrentInfo({ 
@@ -225,7 +226,7 @@ const HeroWithNavbar = forwardRef((props, ref) => {
 
   return (
     <section id="hero" className="relative w-full h-screen overflow-hidden">
-      {/* Background Image - Replacing video */}
+      {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
         <div 
           className="w-full h-full bg-cover bg-center bg-no-repeat"
@@ -236,7 +237,7 @@ const HeroWithNavbar = forwardRef((props, ref) => {
           }}
         />
         
-        {/* Overlays - Ensure text remains readable */}
+        {/* Overlays */}
         <div className="absolute inset-0 bg-black/50 lg:bg-black/40"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70 lg:bg-gradient-to-r lg:from-black/60 lg:via-transparent lg:to-transparent"></div>
       </div>
@@ -527,51 +528,65 @@ const HeroWithNavbar = forwardRef((props, ref) => {
                           </div>
                         </motion.div>
 
-                        {/* Paragraph */}
+ 
+
+                        {/* Centered Paragraph */}
                         <motion.p
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.6, delay: 0.3 }}
-                          className="text-sm sm:text-base md:text-lg text-white/90 font-medium mb-5 max-w-2xl mx-auto leading-relaxed text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] bg-black/20 backdrop-blur-sm p-4 rounded-xl border border-white/10"
+                          transition={{ duration: 0.6, delay: 0.35 }}
+                          className="text-sm sm:text-base md:text-lg text-white/90 font-medium mb-8 max-w-2xl mx-auto leading-relaxed text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
                         >
                           {slide.shortDescription}
                         </motion.p>
+                                               {/* "Request for:" text with underline */}
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: 0.3 }}
+                          className="mb-6"
+                        >
+                          <h2 className="text-xl sm:text-2xl md:text-3xl text-white font-light tracking-wide mb-2">
+                            Request for:
+                          </h2>
+                          <div className="w-32 h-0.5 bg-gradient-to-r from-amber-400 via-green-400 to-blue-400 mx-auto rounded-full"></div>
+                        </motion.div>
 
-                        {/* Three Professional Buttons with Lab Equipment Emojis */}
+                        {/* Three New Buttons: Sample Collection, Call Back, Quotation */}
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.6, delay: 0.4 }}
-                          className="flex flex-row flex-wrap gap-2 justify-center items-center"
+                          className="flex flex-row flex-wrap gap-3 justify-center items-center"
                         >
                           <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={() => setShowServicePopup(true)}
-                            className={`${BUTTON_STYLES.primary} ${DESKTOP_BUTTON_STYLES.primary} cursor-pointer`}
+                            onClick={handleSampleCollection}
+                            className={`${BUTTON_STYLES.sample} ${DESKTOP_BUTTON_STYLES.sample} cursor-pointer`}
                           >
-                            <span>🔬</span>
-                            <span>Request</span>
+                            <span>🧪</span>
+                            <span>Sample Collection</span>
                           </motion.button>
                           
                           <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={handleRequestPrice}
-                            className={`${BUTTON_STYLES.secondary} ${DESKTOP_BUTTON_STYLES.secondary} cursor-pointer`}
-                          >
-                            <span>📋</span>
-                            <span>Price List</span>
-                          </motion.button>
-                          
-                          <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={handleRequestCallback}
-                            className={`${BUTTON_STYLES.accent} ${DESKTOP_BUTTON_STYLES.accent} cursor-pointer`}
+                            onClick={handleCallBack}
+                            className={`${BUTTON_STYLES.callback} ${DESKTOP_BUTTON_STYLES.callback} cursor-pointer`}
                           >
                             <span>📞</span>
                             <span>Call Back</span>
+                          </motion.button>
+                          
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={handleQuotation}
+                            className={`${BUTTON_STYLES.quotation} ${DESKTOP_BUTTON_STYLES.quotation} cursor-pointer`}
+                          >
+                            <span>📋</span>
+                            <span>Quotation</span>
                           </motion.button>
                         </motion.div>
 
@@ -581,9 +596,9 @@ const HeroWithNavbar = forwardRef((props, ref) => {
                           transition={{ duration: 2, repeat: Infinity }}
                           whileHover={{ scale: 1.1 }}
                           onClick={handleOurServicesClick}
-                          className="mt-5 lg:mt-6 group relative 
+                          className="mt-6 lg:mt-8 group relative 
                             flex items-center justify-center
-                            mx-auto w-full max-w-[220px] 
+                            mx-auto w-full max-w-[240px] 
                             px-5 py-2.5 lg:px-8 lg:py-4 
                             bg-gradient-to-r from-green-500 to-green-600 
                             text-white font-bold text-xs lg:text-base 
@@ -637,6 +652,7 @@ const HeroWithNavbar = forwardRef((props, ref) => {
                           </motion.div>
                         )}
 
+                        {/* Only View Details button */}
                         <motion.button
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -784,7 +800,7 @@ const HeroWithNavbar = forwardRef((props, ref) => {
         )}
       </AnimatePresence>
 
-      {/* Info Popup */}
+      {/* Info Popup - REMOVED THE REQUEST SERVICE BUTTON */}
       <AnimatePresence>
         {showInfoPopup && (
           <motion.div
@@ -845,23 +861,13 @@ const HeroWithNavbar = forwardRef((props, ref) => {
                 </div>
               )}
 
+              {/* Only Close button */}
               <div className="flex flex-col sm:flex-row gap-3">
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => {
-                    setShowInfoPopup(false);
-                    setShowServicePopup(true);
-                  }}
-                  className="flex-1 py-3 rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white transition-all duration-300 font-medium shadow-lg cursor-pointer"
-                >
-                  Request Service
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
                   onClick={() => setShowInfoPopup(false)}
-                  className="flex-1 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white transition-all duration-300 font-medium border border-white/10 cursor-pointer"
+                  className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white transition-all duration-300 font-medium border border-white/10 cursor-pointer"
                 >
                   Close
                 </motion.button>
