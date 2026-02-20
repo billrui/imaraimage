@@ -1,4 +1,3 @@
-
 import React, { useRef, forwardRef, useImperativeHandle, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, EffectCreative } from "swiper/modules";
@@ -10,30 +9,20 @@ import "swiper/css/effect-creative";
 
 // Images
 import Logo from "../assets/IMARA.jpg";
-import WelcomeImage from "../assets/HDLAB.jpg";
-import SoilImage from "../assets/soil.jpg";
-import PlantImage from "../assets/plant.jpg";
-import FeedImage from "../assets/feed.jpg";
-import FoodImage from "../assets/food.jpg";
-import FertilizerImage from "../assets/fertilizer.jpg";
-import CompostImage from "../assets/compost.jpg";
-import WaterImage from "../assets/water.jpg";
-import EffluentImage from "../assets/effluent.jpg";
-import ResearchImage from "../assets/research.jpg";
+import BackgroundImage from "../assets/HDLAB.jpg"; // Use your background image
 
-// Button styles - MOBILE OPTIMIZED
+// Button styles - PROFESSIONAL WITH ROUNDED EDGES AND EMOJIS
 const BUTTON_STYLES = {
-  primary: "bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full transition-all duration-300 font-medium px-4 py-2 text-xs shadow-lg hover:shadow-xl active:scale-95",
-  secondary: "bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full transition-all duration-300 font-medium px-4 py-2 text-xs shadow-lg hover:shadow-xl active:scale-95",
-  accent: "bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-full transition-all duration-300 font-medium px-4 py-2 text-xs shadow-lg hover:shadow-xl active:scale-95",
-  mobile: "bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full transition-all duration-300 font-medium px-6 py-3 text-sm shadow-lg hover:shadow-xl active:scale-95 w-full max-w-xs mx-auto",
+  primary: "bg-gradient-to-r from-green-600 to-green-700 text-white rounded-full transition-all duration-300 font-medium px-3 py-1.5 text-xs shadow-md hover:shadow-lg hover:from-green-700 hover:to-green-800 active:scale-95 border border-green-400/20 flex items-center justify-center gap-1.5",
+  secondary: "bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full transition-all duration-300 font-medium px-3 py-1.5 text-xs shadow-md hover:shadow-lg hover:from-blue-700 hover:to-blue-800 active:scale-95 border border-blue-400/20 flex items-center justify-center gap-1.5",
+  accent: "bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full transition-all duration-300 font-medium px-3 py-1.5 text-xs shadow-md hover:shadow-lg hover:from-purple-700 hover:to-purple-800 active:scale-95 border border-purple-400/20 flex items-center justify-center gap-1.5",
 };
 
-// Desktop button styles (will override on larger screens)
+// Desktop button styles (slightly larger)
 const DESKTOP_BUTTON_STYLES = {
-  primary: "sm:bg-gradient-to-r sm:from-green-500 sm:to-green-600 sm:text-white sm:rounded-full sm:transition-all sm:duration-300 sm:font-medium sm:px-6 sm:py-3 sm:text-base",
-  secondary: "sm:bg-gradient-to-r sm:from-blue-500 sm:to-blue-600 sm:text-white sm:rounded-full sm:transition-all sm:duration-300 sm:font-medium sm:px-6 sm:py-3 sm:text-base",
-  accent: "sm:bg-gradient-to-r sm:from-purple-500 sm:to-purple-600 sm:text-white sm:rounded-full sm:transition-all sm:duration-300 sm:font-medium sm:px-6 sm:py-3 sm:text-base",
+  primary: "sm:px-5 sm:py-2.5 sm:text-sm sm:gap-2",
+  secondary: "sm:px-5 sm:py-2.5 sm:text-sm sm:gap-2",
+  accent: "sm:px-5 sm:py-2.5 sm:text-sm sm:gap-2",
 };
 
 // Slide data
@@ -43,7 +32,6 @@ const slides = [
     rightText: "More Info About Us",
     description: "Imara Analytical Laboratories (IAL) is a leading private testing laboratory headquartered in Kericho, Kenya, serving clients across East Africa.",
     shortDescription: "Accurate. Certified. Trusted laboratory testing services for Agriculture, Environment & Industry.",
-    image: WelcomeImage,
     isWelcome: true
   },
   {
@@ -54,9 +42,8 @@ const slides = [
       { name: "Soil pH", parameters: "pH" },
       { name: "Basic soil analysis", parameters: "pH, P, K, Ca, Mg, Na, OM, N, CEC" },
     ],
-    image: SoilImage,
     icon: "🌱",
-    metrics: { turnaround: "1-3 days" }
+    metrics: { turnaround: "1-7 days" }
   },
   {
     title: "Plant Tissue Analysis",
@@ -65,9 +52,8 @@ const slides = [
       { name: "Total nitrogen", parameters: "N" },
       { name: "Leaf analysis", parameters: "N, P, K, Ca, Mg, S, Na, Fe, Mn, B, MO, Zn" },
     ],
-    image: PlantImage,
     icon: "🌿",
-    metrics: { turnaround: "1-3 days" }
+    metrics: { turnaround: "1-7 days" }
   },
   {
     title: "Animal Feed Analysis",
@@ -76,30 +62,26 @@ const slides = [
       { name: "Mineral elements in feeds", parameters: "P, K, Ca, Mg, S, Fe, Mn, B, Cu, Mo, Zn" },
       { name: "Heavy metals analysis", parameters: "Cu, Cd, Pb, Co, B, Ni, Zn, Cr, As" },
     ],
-    image: FeedImage,
     icon: "🐄",
-    metrics: { turnaround: "1-3 days" }
+    metrics: { turnaround: "1-7 days" }
   },
   {
     title: "Food Analysis",
     description: "Quality and safety testing for human food products.",
-    image: FoodImage,
     icon: "🍎",
-    metrics: { turnaround: "1-3 days" }
+    metrics: { turnaround: "1-7 days" }
   },
   {
     title: "Fertilizer Analysis",
     description: "Determine quality and chemical composition of fertilizers for optimal crop yield.",
-    image: FertilizerImage,
     icon: "🧪",
-    metrics: { turnaround: "1-3 days" }
+    metrics: { turnaround: "1-7 days" }
   },
   {
     title: "Compost / Manure Analysis",
     description: "Organic matter evaluation supporting sustainable soil management.",
-    image: CompostImage,
     icon: "🌿",
-    metrics: { turnaround: "1-3 days" }
+    metrics: { turnaround: "1-7 days" }
   },
   {
     title: "Water Analysis",
@@ -108,16 +90,14 @@ const slides = [
       { name: "Microbial", parameters: "Coliforms, E.coli, TVC, Salmonella" },
       { name: "Complete irrigation water", parameters: "pH, Na, Al, Ca, Mg, Cl, EC, TDS, S, Ni, P, K, B, SO4, Total nitrogen, NH4" },
     ],
-    image: WaterImage,
     icon: "💧",
-    metrics: { turnaround: "1-3 days" }
+    metrics: { turnaround: "1-7 days" }
   },
   {
     title: "NEMA Effluent Analysis",
     description: "Environmental discharge testing meeting regulatory compliance standards.",
-    image: EffluentImage,
     icon: "🏭",
-    metrics: { turnaround: "1-3 days" }
+    metrics: { turnaround: "1-7 days" }
   },
   {
     title: "Research Analysis",
@@ -125,7 +105,6 @@ const slides = [
     table: [
       { name: "Heavy Metals Analysis", parameters: "Se, Ni, Pb, Cd, Co, Cr, Zn" },
     ],
-    image: ResearchImage,
     icon: "🔬",
     metrics: { turnaround: "Custom" }
   },
@@ -135,7 +114,6 @@ const HeroWithNavbar = forwardRef((props, ref) => {
   const [swiper, setSwiper] = useState(null);
   const [showServicePopup, setShowServicePopup] = useState(false);
   const [showInfoPopup, setShowInfoPopup] = useState(false);
-  const [showMobileMenuPopup, setShowMobileMenuPopup] = useState(false);
   const [currentInfo, setCurrentInfo] = useState({ title: "", description: "", table: null, icon: "", metrics: {} });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -191,7 +169,6 @@ const HeroWithNavbar = forwardRef((props, ref) => {
   const handleServiceClick = (service) => {
     handleWhatsApp(`Hello, I would like to request: ${service.title}`);
     setShowServicePopup(false);
-    setShowMobileMenuPopup(false);
   };
 
   const handleRequestPrice = () => handleWhatsApp("Hello, I would like the Price List.");
@@ -248,12 +225,28 @@ const HeroWithNavbar = forwardRef((props, ref) => {
 
   return (
     <section id="hero" className="relative w-full h-screen overflow-hidden">
+      {/* Background Image - Replacing video */}
+      <div className="absolute inset-0 w-full h-full">
+        <div 
+          className="w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${BackgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        
+        {/* Overlays - Ensure text remains readable */}
+        <div className="absolute inset-0 bg-black/50 lg:bg-black/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70 lg:bg-gradient-to-r lg:from-black/60 lg:via-transparent lg:to-transparent"></div>
+      </div>
+
       {/* Background particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-white/5 rounded-full"
+            className="absolute w-1 h-1 bg-white/10 rounded-full"
             initial={{ 
               x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
               y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
@@ -332,7 +325,7 @@ const HeroWithNavbar = forwardRef((props, ref) => {
 
           {/* Right side */}
           <div className="flex items-center gap-2">
-            {/* WhatsApp Button - Hidden on mobile, shown on desktop */}
+            {/* WhatsApp Button */}
             <motion.div
               className="relative hidden sm:block"
               onHoverStart={() => setShowWhatsAppTooltip(true)}
@@ -457,78 +450,6 @@ const HeroWithNavbar = forwardRef((props, ref) => {
         )}
       </AnimatePresence>
 
-      {/* Mobile Action Menu Popup */}
-      <AnimatePresence>
-        {showMobileMenuPopup && (
-          <motion.div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={(e) => e.target === e.currentTarget && setShowMobileMenuPopup(false)}
-          >
-            <motion.div
-              className="bg-gray-900/95 backdrop-blur-xl w-full max-w-sm rounded-2xl shadow-2xl border border-white/10 p-6"
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-            >
-              <h3 className="text-xl font-bold text-white mb-4 text-center">Choose an option</h3>
-              
-              <div className="space-y-3">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => {
-                    setShowServicePopup(true);
-                    setShowMobileMenuPopup(false);
-                  }}
-                  className="w-full py-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-medium shadow-lg flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <span>🔬</span>
-                  <span>Request Service</span>
-                </motion.button>
-                
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => {
-                    handleRequestPrice();
-                    setShowMobileMenuPopup(false);
-                  }}
-                  className="w-full py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-medium shadow-lg flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <span>💰</span>
-                  <span>Price List</span>
-                </motion.button>
-                
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => {
-                    handleRequestCallback();
-                    setShowMobileMenuPopup(false);
-                  }}
-                  className="w-full py-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl font-medium shadow-lg flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <span>📞</span>
-                  <span>Call Back</span>
-                </motion.button>
-              </div>
-              
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setShowMobileMenuPopup(false)}
-                className="mt-4 w-full py-3 bg-white/10 hover:bg-white/15 text-white rounded-xl font-medium transition-colors border border-white/10 cursor-pointer"
-              >
-                Cancel
-              </motion.button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Hero Swiper */}
       <Swiper
         onSwiper={setSwiper}
@@ -558,101 +479,101 @@ const HeroWithNavbar = forwardRef((props, ref) => {
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
             <div className="relative h-full w-full overflow-hidden">
-              {/* Background Image */}
-              <div className="absolute inset-0 w-full h-full">
-                <img 
-                  src={slide.image} 
-                  alt={slide.title}
-                  className="w-full h-full object-cover object-center"
-                  style={{
-                    objectFit: 'cover',
-                    width: '100%',
-                    height: '100%',
-                  }}
-                />
-                
-                {/* Overlays */}
-                <div className="absolute inset-0 bg-black/40 lg:bg-black/30"></div>
-                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70 lg:bg-gradient-to-r lg:from-black/50 lg:via-transparent lg:to-transparent"></div>
-              </div>
-
-              {/* Content - Higher on mobile, centered on desktop */}
+              {/* Content */}
               <div className="relative z-10 h-full w-full flex items-start justify-center pt-16 sm:pt-20 md:pt-24 lg:items-center lg:pt-0">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                   <motion.div 
-                    className="max-w-3xl mx-auto text-center"
+                    className="max-w-4xl mx-auto text-center"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                   >
                     {slide.isWelcome ? (
                       <>
-                        <motion.h1
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.6 }}
-                          className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 text-center"
+                        {/* Enhanced Company Name Design */}
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.8, delay: 0.2 }}
+                          className="mb-4"
                         >
-                          <span className="text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+                          {/* Welcome text with elegant styling */}
+                          <span className="inline-block text-lg sm:text-xl md:text-2xl text-white/90 font-light tracking-[0.3em] uppercase mb-3 border-b border-white/20 pb-2">
                             Welcome to
                           </span>
-                          <br />
-                          <span className="bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] text-2xl sm:text-3xl lg:text-5xl">
-                            Imara Analytical Laboratories
-                          </span>
-                        </motion.h1>
+
+                          {/* Main company name with enhanced gradient and effects */}
+                          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-3">
+                            <span className="bg-gradient-to-r from-amber-300 via-yellow-300 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)] relative inline-block">
+                              Imara
+                              <span className="absolute -top-1 -right-3 text-2xl text-yellow-300/30 animate-pulse">✨</span>
+                            </span>
+                            <br className="block sm:hidden" />
+                            <span className="bg-gradient-to-r from-green-300 via-emerald-300 to-green-300 bg-clip-text text-transparent drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)] relative inline-block ml-0 sm:ml-4">
+                              Analytical
+                              <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-green-300 to-transparent"></span>
+                            </span>
+                            <br className="block sm:hidden" />
+                            <span className="bg-gradient-to-r from-blue-300 via-cyan-300 to-blue-300 bg-clip-text text-transparent drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)] block mt-2 sm:mt-0 sm:inline-block sm:ml-4">
+                              Laboratories
+                            </span>
+                          </h1>
+
+                          {/* Decorative elements */}
+                          <div className="flex items-center justify-center gap-3 mt-2">
+                            <div className="w-12 h-px bg-gradient-to-r from-transparent via-yellow-300 to-transparent"></div>
+                            <span className="text-yellow-300/50 text-sm">🔬</span>
+                            <div className="w-12 h-px bg-gradient-to-r from-transparent via-green-300 to-transparent"></div>
+                          </div>
+                        </motion.div>
 
                         {/* Paragraph */}
                         <motion.p
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.6, delay: 0.1 }}
-                          className="text-xs sm:text-sm md:text-base text-white font-medium mb-4 max-w-2xl mx-auto leading-relaxed text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] bg-black/30 backdrop-blur-sm p-3 rounded-xl"
+                          transition={{ duration: 0.6, delay: 0.3 }}
+                          className="text-sm sm:text-base md:text-lg text-white/90 font-medium mb-5 max-w-2xl mx-auto leading-relaxed text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] bg-black/20 backdrop-blur-sm p-4 rounded-xl border border-white/10"
                         >
                           {slide.shortDescription}
                         </motion.p>
 
-                        {/* CTA Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-2 justify-center items-center">
-                          {/* Desktop buttons */}
-                          <div className="hidden sm:flex sm:flex-row gap-2">
-                            <motion.button
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
-                              onClick={() => setShowServicePopup(true)}
-                              className={`${BUTTON_STYLES.primary} ${DESKTOP_BUTTON_STYLES.primary} cursor-pointer`}
-                            >
-                              Request Service
-                            </motion.button>
-                            <motion.button
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
-                              onClick={handleRequestPrice}
-                              className={`${BUTTON_STYLES.secondary} ${DESKTOP_BUTTON_STYLES.secondary} cursor-pointer`}
-                            >
-                              Price List
-                            </motion.button>
-                            <motion.button
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
-                              onClick={handleRequestCallback}
-                              className={`${BUTTON_STYLES.accent} ${DESKTOP_BUTTON_STYLES.accent} cursor-pointer`}
-                            >
-                              Call Back
-                            </motion.button>
-                          </div>
-
-                          {/* Mobile single button */}
+                        {/* Three Professional Buttons with Lab Equipment Emojis */}
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: 0.4 }}
+                          className="flex flex-row flex-wrap gap-2 justify-center items-center"
+                        >
                           <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={() => setShowMobileMenuPopup(true)}
-                            className="sm:hidden bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full transition-all duration-300 font-medium px-8 py-3.5 text-sm shadow-lg hover:shadow-xl active:scale-95 w-full max-w-[200px] mx-auto flex items-center justify-center gap-2 cursor-pointer"
+                            onClick={() => setShowServicePopup(true)}
+                            className={`${BUTTON_STYLES.primary} ${DESKTOP_BUTTON_STYLES.primary} cursor-pointer`}
                           >
-                            <span>📱</span>
-                            <span>Click Me</span>
+                            <span>🔬</span>
+                            <span>Request</span>
                           </motion.button>
-                        </div>
+                          
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={handleRequestPrice}
+                            className={`${BUTTON_STYLES.secondary} ${DESKTOP_BUTTON_STYLES.secondary} cursor-pointer`}
+                          >
+                            <span>📋</span>
+                            <span>Price List</span>
+                          </motion.button>
+                          
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={handleRequestCallback}
+                            className={`${BUTTON_STYLES.accent} ${DESKTOP_BUTTON_STYLES.accent} cursor-pointer`}
+                          >
+                            <span>📞</span>
+                            <span>Call Back</span>
+                          </motion.button>
+                        </motion.div>
 
                         {/* Our Services button */}
                         <motion.button
@@ -660,7 +581,7 @@ const HeroWithNavbar = forwardRef((props, ref) => {
                           transition={{ duration: 2, repeat: Infinity }}
                           whileHover={{ scale: 1.1 }}
                           onClick={handleOurServicesClick}
-                          className="mt-4 lg:mt-6 group relative 
+                          className="mt-5 lg:mt-6 group relative 
                             flex items-center justify-center
                             mx-auto w-full max-w-[220px] 
                             px-5 py-2.5 lg:px-8 lg:py-4 
@@ -673,7 +594,7 @@ const HeroWithNavbar = forwardRef((props, ref) => {
                             border-2 border-white/30 
                             backdrop-blur-sm"
                         >
-                          <span className="flex items-center gap-1.5">
+                          <span className="flex items-center gap-2">
                             <span className="tracking-wide">Explore All Services</span>
                             <span className="text-white text-sm lg:text-xl animate-bounce">→</span>
                           </span>
@@ -685,10 +606,10 @@ const HeroWithNavbar = forwardRef((props, ref) => {
                           initial={{ scale: 0, rotate: -180 }}
                           animate={{ scale: 1, rotate: 0 }}
                           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-                          className="relative mb-3 lg:mb-6 inline-block"
+                          className="relative mb-4 lg:mb-6 inline-block"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-green-500/30 to-blue-500/30 rounded-full blur-2xl"></div>
-                          <div className="relative text-5xl lg:text-7xl bg-white/10 backdrop-blur-xl rounded-full w-20 h-20 lg:w-32 lg:h-32 flex items-center justify-center mx-auto border-2 border-white/30">
+                          <div className="relative text-5xl lg:text-7xl bg-white/10 backdrop-blur-xl rounded-full w-20 h-20 lg:w-28 lg:h-28 flex items-center justify-center mx-auto border-2 border-white/30">
                             {slide.icon}
                           </div>
                         </motion.div>
@@ -697,7 +618,7 @@ const HeroWithNavbar = forwardRef((props, ref) => {
                           initial={{ opacity: 0, y: 30 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.6 }}
-                          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-2 text-white drop-shadow-lg"
+                          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 text-white drop-shadow-lg"
                         >
                           {slide.title}
                         </motion.h1>
@@ -707,7 +628,7 @@ const HeroWithNavbar = forwardRef((props, ref) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
-                            className="mb-4"
+                            className="mb-5"
                           >
                             <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 backdrop-blur-md rounded-full text-white text-sm border border-blue-500/30">
                               <span className="text-blue-400">⏱️</span>
@@ -733,7 +654,7 @@ const HeroWithNavbar = forwardRef((props, ref) => {
                 </div>
               </div>
 
-              {/* Elegant Navigation Arrows */}
+              {/* Navigation Arrows */}
               <button
                 onClick={() => swiper?.slidePrev()}
                 className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 
@@ -786,7 +707,7 @@ const HeroWithNavbar = forwardRef((props, ref) => {
                 </svg>
               </button>
 
-              {/* Slide counter for service slides */}
+              {/* Slide counter */}
               {!slide.isWelcome && (
                 <motion.div 
                   initial={{ opacity: 0 }}
